@@ -6,15 +6,15 @@ using SharpTestsEx;
 namespace LetThereBeTest.Tests.Integration
 {
 	[TestFixture]
-	public class DirectoryResourceTest
+	public class FileSystemTest
 	{
 		[Test]
 		public void RecursivelyDeleteDirectory_EmptyDirectory_ShouldDeleteIt()
 		{
 			var tmpDirectoryPath = ATemporaryDirectory();
-			var directoryResource = new DirectoryResource(tmpDirectoryPath);
+			var directoryResource = new FileSystem();
 
-			directoryResource.RecursivelyDeleteDirectory();
+			directoryResource.RecursivelyDeleteDirectory(tmpDirectoryPath);
 
 			Directory.Exists(tmpDirectoryPath).Should().Be.False();
 		}
@@ -25,9 +25,9 @@ namespace LetThereBeTest.Tests.Integration
 		{
 			var tmpDirectoryPath = ATemporaryDirectory();
 			var fileName = ATextFileIn(tmpDirectoryPath);
-			var directoryResource = new DirectoryResource(tmpDirectoryPath);
+			var directoryResource = new FileSystem();
 
-			directoryResource.RecursivelyDeleteDirectory();
+			directoryResource.RecursivelyDeleteDirectory(tmpDirectoryPath);
 
 			Directory.Exists(tmpDirectoryPath).Should().Be.False();
 			File.Exists(fileName).Should().Be.False();
@@ -40,9 +40,9 @@ namespace LetThereBeTest.Tests.Integration
 			var tmpDirectoryPath = ATemporaryDirectory();
 			var subDirPath = CreateSubDirectoryIn(tmpDirectoryPath);
 			var fileName = ATextFileIn(subDirPath);
-			var directoryResource = new DirectoryResource(tmpDirectoryPath);
+			var directoryResource = new FileSystem();
 
-			directoryResource.RecursivelyDeleteDirectory();
+			directoryResource.RecursivelyDeleteDirectory(tmpDirectoryPath);
 
 			Directory.Exists(tmpDirectoryPath).Should().Be.False();
 			File.Exists(fileName).Should().Be.False();

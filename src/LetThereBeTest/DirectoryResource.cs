@@ -1,44 +1,21 @@
-using System;
-using System.IO;
+﻿using System;
 
 namespace LetThereBeTest
 {
-	public class DirectoryResource
+	public class DirectoryResource : IDisposable
 	{
-		public DirectoryResource(string path)
+		private readonly IFileSystem _fileSystem;
+		public string Path { get; private set; }
+
+		public DirectoryResource(IFileSystem fileSystem, string path)
 		{
-			_path = path;
+			_fileSystem = fileSystem;
+			Path = path;
 		}
 
-		private string _path;
-		public string Path
+		public void Dispose()
 		{
-			get
-			{
-				return _path;
-			}
-		}
-
-		public void RecursivelyDeleteDirectory()
-		{
-			RecursivelyDeleteDirectory(_path);
-		}
-
-		private void RecursivelyDeleteDirectory(string path)
-		{
-			string[] files = Directory.GetFiles(path);
-			string[] dirs = Directory.GetDirectories(path);
-
-			foreach (string file in files)
-			{
-				File.SetAttributes(file, FileAttributes.Normal);
-				File.Delete(file);
-			}
-
-			foreach (string dir in dirs)
-				RecursivelyDeleteDirectory(dir);
-
-			Directory.Delete(path, false);
+			_fileSystem.RecursivelyDeleteDirectory(Path);
 		}
 	}
 }
