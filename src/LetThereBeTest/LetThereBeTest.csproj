@@ -40,7 +40,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DirectoryResource.cs" />
     <Compile Include="FileSystem.cs" />
     <Compile Include="FileSystemHelper.cs" />
     <Compile Include="IFileSystem.cs" />

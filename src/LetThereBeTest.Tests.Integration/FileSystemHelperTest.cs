@@ -29,5 +29,21 @@ namespace LetThereBeTest.Tests.Integration
 
 			File.Exists(filePath).Should().Be.False();
 		}
+
+
+		[Test]
+		public void RandomTemporaryFile_should_create_a_disposable_file()
+		{
+			string filePath;
+			using (var randomTemporaryFile = FileSystemHelper.RandomTemporaryFile())
+			{
+				filePath = randomTemporaryFile.Path;
+				File.WriteAllText(filePath, "foobar");
+				File.Exists(filePath).Should().Be.True();
+			}
+
+			File.Exists(filePath).Should().Be.False();
+		}
+
 	}
 }
